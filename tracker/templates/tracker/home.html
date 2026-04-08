@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-box">
+            <h1>Expense Tracker</h1>
+            <p class="subtitle">Choose an option</p>
+
+            <div class="forms-container">
+                <div class="form-card" style="text-align:center;">
+                    <h2>Already have an account?</h2>
+                    <a href="{% url 'login' %}" class="btn blue-btn">Go to Login</a>
+                </div>
+
+                <div class="form-card" style="text-align:center;">
+                    <h2>New user?</h2>
+                    <a href="{% url 'signup' %}" class="btn orange-btn">Create Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-box" style="max-width:500px;">
+            <h1>Login</h1>
+            <p class="subtitle">Enter your account details</p>
+
+            {% if error %}
+            <div class="warning-box">{{ error }}</div>
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <label>Username</label>
+                <input type="text" name="username" required>
+
+                <label>Password</label>
+                <input type="password" name="password" required>
+
+                <button type="submit" class="btn blue-btn">Login</button>
+            </form>
+
+            <br>
+            <a href="{% url 'home' %}">Back</a>
+        </div>
+    </div>
+</body>
+</html>

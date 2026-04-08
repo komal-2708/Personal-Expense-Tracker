@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker Login</title>
+    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-box">
+            <h1>Personal Expense Tracker</h1>
+            <p class="subtitle">Login or create your account</p>
+
+            <div class="forms-container">
+                <div class="form-card">
+                    <h2>Login</h2>
+
+                    {% if login_form.errors %}
+                        <div class="warning-box">
+                            {{ login_form.errors }}
+                        </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ login_form.as_p }}
+                        <button type="submit" name="login_submit" class="btn blue-btn">Login</button>
+                    </form>
+                </div>
+
+                <div class="form-card">
+                    <h2>Sign Up</h2>
+
+                    {% if signup_form.errors %}
+                        <div class="warning-box">
+                            {{ signup_form.errors }}
+                        </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ signup_form.as_p }}
+                        <button type="submit" name="signup_submit" class="btn orange-btn">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
