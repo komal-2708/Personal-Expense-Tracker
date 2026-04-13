@@ -73,10 +73,16 @@ def dashboard(request):
         print("DASHBOARD POST:", request.POST)
 
         if request.POST.get('action') == 'set_income':
-            profile.income = float(request.POST.get('income', 0))
-            profile.limit = float(request.POST.get('limit', 0))
-            profile.save()
-            return redirect('dashboard')
+            income = float(request.POST.get('income', 0))
+            limit = float(request.POST.get('limit', 0))
+
+            if limit > income:
+                warning = "Expense limit cannot be greater than income."
+            else:
+                profile.income = income
+                profile.limit = limit
+                profile.save()
+                return redirect('dashboard')
 
         elif request.POST.get('action') == 'add_expense':
             Expense.objects.create(
@@ -93,7 +99,9 @@ def dashboard(request):
     category_data = expenses.values('category').annotate(total=Sum('amount')).order_by('category')
 
     warning = None
-    if profile.limit > 0 and total > profile.limit:
+    if profile.limit > profile.income:
+        warning = "Expense limit cannot be greater than income."
+    elif profile.limit > 0 and total > profile.limit:
         warning = "Warning: Your total expenses have exceeded your expense limit!"
 
     return render(request, 'tracker/dashboard.html', {
